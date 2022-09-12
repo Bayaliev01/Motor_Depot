@@ -45,11 +45,16 @@ public class Main {
         }
         System.out.println("  \n\nInfo about Drivers     ");
         System.out.println("___________________________");
-        System.out.printf("%-1s%-10s%-10s%n", "# |", "name", "| truck ");
+        System.out.printf("%-1s%-10s%-10s%n", "# |", "name","| truck ");
         System.out.println("___________________________");
             Drive[] drives1 = GSON.fromJson(readFileDriver(), Drive[].class);
             for (Drive drive : drives1) {
-                System.out.println(drive.infoDriver());
+//                System.out.printf("%-1s |", t.getId());
+            System.out.printf("%-2s|",drive.getId());
+            System.out.printf("%-10s|",drive.getName());
+            System.out.printf("%-10s",drive.getTruck());
+            System.out.println();
+
             }
         String allCars = GSON.toJson(trucks);
         String allDrive = GSON.toJson(drives);

@@ -48,7 +48,7 @@ public class Drive {
         return drive;
     }
     public String infoDriver(){
-        return id+" | "+name+"    | "+truck;
+        return id+"   | "+name+"| "+truck;
     }
 
 

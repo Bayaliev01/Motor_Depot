@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Scanner;
 
 public class Main {
     public static final GsonBuilder GSON_BUILDER = new GsonBuilder();
@@ -22,7 +23,7 @@ public class Main {
                 Truck.makeCar(2, "Volvo", new Drive(), Status.BASE),
                 Truck.makeCar(3, "DAF XT ", new Drive(), Status.BASE)
         };
-   //     Truck[] trucks2 = trucks;
+        //     Truck[] trucks2 = trucks;
         Drive[] drives = {
                 Drive.createDriver(1, "Petr ", ""),
                 Drive.createDriver(2, "Askar", ""),
@@ -37,36 +38,41 @@ public class Main {
         for (Truck t : trucks1) {
 //            System.out.println(t.toString());
             System.out.printf("%-1s |", t.getId());
-            System.out.printf("%-10s|",t.getName());
-            System.out.printf("%-10s|",t.getDrive());
-            System.out.printf("%-10s",t.getStatus());
+            System.out.printf("%-10s|", t.getName());
+            System.out.printf("%-10s|", t.getDrive());
+            System.out.printf("%-10s", t.getStatus());
             System.out.println();
 
         }
         System.out.println("  \n\nInfo about Drivers     ");
         System.out.println("___________________________");
-        System.out.printf("%-1s%-10s%-10s%n", "# |", "name","| truck ");
+        System.out.printf("%-1s%-10s%-10s%n", "# |", "name", "| truck ");
         System.out.println("___________________________");
-            Drive[] drives1 = GSON.fromJson(readFileDriver(), Drive[].class);
-            for (Drive drive : drives1) {
-//                System.out.printf("%-1s |", t.getId());
-            System.out.printf("%-2s|",drive.getId());
-            System.out.printf("%-10s|",drive.getName());
-            System.out.printf("%-10s",drive.getTruck());
+        Drive[] drives1 = GSON.fromJson(readFileDriver(), Drive[].class);
+        for (Drive drive : drives1) {
+            System.out.printf("%-2s|", drive.getId());
+            System.out.printf("%-10s|", drive.getName());
+            System.out.printf("%-10s", drive.getTruck());
             System.out.println();
 
-            }
-        String allCars = GSON.toJson(trucks);
-        String allDrive = GSON.toJson(drives);
-//       System.out.println(allCars);
-        writeFileTruck(allCars);
+        }
+
+
+        //String allCars = GSON.toJson(trucks);
+        //String allDrive = GSON.toJson(drives);
+        //System.out.println(allCars);
+        //writeFileTruck(allCars);
         //  System.out.println(readFile());
-        writeFileDrive(allDrive);
-
-
-
-
-
+        // writeFileDrive(allDrive);
+        while (true) {
+            System.out.println("Выберите truck: 1 2 3 \n 0 - exit");
+            Scanner scanner = new Scanner(System.in);
+            int truckId = scanner.nextInt();
+            if (truckId == 0) {
+                break;
+            }
+            TruckService.changeTruck(trucks1, truckId, drives1);
+        }
 
     }
 
@@ -118,5 +124,7 @@ public class Main {
             e.getMessage();
         }
         return json;
+
+
     }
 }
